@@ -6,5 +6,5 @@ This is a wrapper of the gtrack diploid preparation files to run chrom3D (https:
 - pybedtools
 - statsmodels
 - bedtools
-- [NCHG](folk.uio.no/jonaspau/hic/NCHG_hic.zip)
+- [NCHG](http://folk.uio.no/jonaspau/hic/NCHG_hic.zip)
 
