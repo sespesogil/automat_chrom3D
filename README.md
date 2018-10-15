@@ -16,10 +16,13 @@ Download and install NCHG
 ```make ```  <br/>
 ```export PATH=$PATH:${PWD} ```   
 
-Add to the preprocess__script-master folder the following scripts found in this repository:
-
+Add to the preprocess__script-master folder the following scripts found in this repository.
 
 # Usage
 
-```./automat_chrom3D.sh hic_pro_results_PATH output_folder_PATH name_experiment chromosome_size_PATH arrowhead_PATH black_list_PATH NCHG_PATH```
+Use the following script if you have LADS:
+```./automat_chrom3D.LADS.sh hic_pro_results_PATH output_folder_PATH name_experiment chromosome_size_PATH arrowhead_PATH black_list_PATH NCHG_PATH LADS.bed```
+
+Otherwise:
+```./automat_chrom3D.woLADS.sh hic_pro_results_PATH output_folder_PATH name_experiment chromosome_size_PATH arrowhead_PATH black_list_PATH NCHG_PATH LADS.bed```
 
