@@ -16,7 +16,7 @@ Download and install NCHG
 ```make ```  <br/>
 ```export PATH=$PATH:${PWD} ```   
 
-Add to the preprocess__script-master folder the following scripts found in this repository.
+Add to the preprocess__script-master folder the scripts found in this repository.
 
 # Usage
 
