@@ -20,9 +20,9 @@ Add to the preprocess__script-master folder the following scripts found in this 
 
 # Usage
 
-Use the following script if you have LADS:
+Use the following script if you have LADS: <br/>
 ```./automat_chrom3D.LADS.sh hic_pro_results_PATH output_folder_PATH name_experiment chromosome_size_PATH arrowhead_PATH black_list_PATH NCHG_PATH LADS.bed```
 
-Otherwise:
+Otherwise: <br/>
 ```./automat_chrom3D.woLADS.sh hic_pro_results_PATH output_folder_PATH name_experiment chromosome_size_PATH arrowhead_PATH black_list_PATH NCHG_PATH LADS.bed```
 
