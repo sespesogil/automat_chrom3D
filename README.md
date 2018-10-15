@@ -13,8 +13,10 @@ Download and install NCHG
 ```curl -O http://folk.uio.no/jonaspau/hic/NCHG_hic.zip``` \
 ```unzip NCHG_hic.zip``` \
 ```cd NCHG_hic``` \ 
+
 ```make``` \ 
-```export PATH=$PATH:${PWD}``` \
+
+```export PATH=$PATH:${PWD}```
 
 # Usage
 
