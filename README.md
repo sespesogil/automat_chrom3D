@@ -1,6 +1,8 @@
 # automat_chrom3D
 Wrapper of the gtrack diploid preparation files pipeline to run chrom3D (https://github.com/Chrom3D/pipeline)
 
+Current version was developped for mouse (disregarding centromeres). Future versions will include this parameter.
+
 # Required dependencies 
 - Python 2.7 
 - pybedtools
