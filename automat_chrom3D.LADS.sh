@@ -1,4 +1,5 @@
 
+#!/bin/bash
 
 module load boost/1.60.0 chimera/1.6.2 python py_packages bedtools
 
