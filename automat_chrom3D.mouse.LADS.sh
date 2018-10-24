@@ -72,8 +72,6 @@ cd $NCHG_dir/preprocess_scripts-master
 
 $NCHG_dir/preprocess_scripts-master/NCHG_fdr_oddratio_calc_intra.sh $chrom3D
 
-# python NCHG_fdr_oddratio_calc.py $chrom3D/intrachr_bedpe/sample_50kb.domain.RAW.bedpe.out fdr_bh 2 0.01 > $chrom3D/intrachr_bedpe/sample_50kb.domain.RAW.bedpe.sig
-
 # Create the Model Setup File (GTrack)
 
 bash $NCHG_dir/preprocess_scripts-master/make_gtrack.sh $chrom3D/intrachr_bedpe/sample_50kb.domain.RAW.bedpe.sig $domains_50kb/sample_Arrowhead_domainlist.domains $chrom3D/intrachr_bedpe/$name.gtrack
@@ -94,8 +92,6 @@ cd $NCHG_dir/preprocess_scripts-master
 
 $NCHG_dir/preprocess_scripts-master/NCHG_fdr_oddratio_calc_inter.sh $chrom3D $name
 
-# python NCHG_fdr_oddratio_calc.py $chrom3D/$name.inter.bedpe.out fdr_bh 2 0.01 >  $chrom3D/$name.inter.bedpe.sig
-
 
 # (vi) Add significant inter-chromosomal interaction information to the GTrack
 
@@ -103,8 +99,6 @@ bash $NCHG_dir/preprocess_scripts-master/add_inter_chrom_beads.sh $chrom3D/intra
 # (vii) Modify the Model Setup File to make a diploid model
 
 $NCHG_dir/preprocess_scripts-master/make_diploid.sh $chrom3D $name
-
-#python make_diploid_gtrack.py $chrom3D/$name.inter_intra.gtrack > $chrom3D/$name.inter_intra.wolads.gtrack
 
 
 
