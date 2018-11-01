@@ -34,6 +34,6 @@ Add to the preprocess__script-master folder the scripts found in this repository
 Use the following script if you have LADS: <br/>
 ```./automat_chrom3D.mouse.LADS.sh PATH_hic_pro_results PATH_output_folder name_experiment chromosome_sizes.bed PATH_arrowhead black_list.bed PATH_NCHG LADS.bed```
 
-Otherwise: (available soon) <br/>  
+Otherwise: <br/>  
 ```./automat_chrom3D.woLADS.sh PATH_hic_pro_results PATH_output_folder name_experiment chromosome_sizes.bed PATH_arrowhead black_list.bed PATH_NCHG```
 
