@@ -38,9 +38,14 @@ black_list=  #genomic blacklist bedfile path
 NCHG_dir=  # NCHG_hic path (i.e. ./programs/NCHG_hic) 
 cytoBand=  # cytoBand bedfile 
 LADS=   # LADs bedfile
-
-
+```
+Then run: 
 ```./automat_chrom3D.sh $(cat conf.txt)```
+
+# Disclamer
+
+We recomend to run the pipeline with different parameters in a first run. Resulting chromosomes with low number of beads will result in a failed run of Chrom3D (i.e chrY is very often giving problems, if so we recomend to set female or none in the sex argument, that will remove chrY to be considered) 
+
 
 ```PATH_hic_pro_results```= directory where to find the matrix and abs files. <br/>
 ```PATH_output_folder```= folder where you want to have the results. <br/>
