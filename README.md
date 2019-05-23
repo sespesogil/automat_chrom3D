@@ -21,6 +21,26 @@ Download and install NCHG
 Add to the preprocess__script-master folder the scripts found in this repository.
 
 # Usage
+Add corresponding arguments to the conf.txt:
+
+```
+dir= #HiC-Pro results path 
+res_intra=50000  # desired resolution of intra-chromosomal interactions 
+res_inter=1000000 # desired resolution of inter-chromosomal interactions 
+sex=  # options: female/male/none 
+stats=bonferroni  # options: bonferroni, sidak, holm-sidak, holm, simes-hochberg, hommel, fdr_bh, fdr_by, fdr_tsbh, fdr_tsbky 
+thresold=  # multitest p-value thresold 
+chrom3D= # output folder 
+name=  # name of the experiment 
+chromosome_size= # bedfile of chromosome sizes 
+domains=  #Arrowhead path 
+black_list=  #genomic blacklist bedfile path 
+NCHG_dir=  # NCHG_hic path (i.e. ./programs/NCHG_hic) 
+cytoBand=  # cytoBand bedfile 
+LADS=   # LADs bedfile
+
+
+```./automat_chrom3D.sh $(cat conf.txt)```
 
 ```PATH_hic_pro_results```= directory where to find the matrix and abs files. <br/>
 ```PATH_output_folder```= folder where you want to have the results. <br/>
