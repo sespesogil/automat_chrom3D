@@ -49,5 +49,7 @@ Then run:
 
 # Disclamer
 
-The present pipepile evaluates the number of TADS, size and intra & interchromosomal distribution, as they are key parts of the success of the results 3D model. We recomend to run the pipeline with different parameters in a first run. Resulting chromosomes with low number of beads will result in a failed run of Chrom3D (i.e chrY is very often giving problems, if so we recomend to set female or none in the sex argument, that will remove chrY to be considered) 
+The present pipepile evaluates the number and size of the TADS, as well as intra & interchromosomal distribution, as they are key parts of the success of the results 3D model. Very skewed distributions of intra or interchromosomal interactions might not work, if so, please use the NCHG found in the present repository. 
+
+We recomend to run the pipeline with different parameters in a first run. Resulting chromosomes with low number of beads will result in a failed run of Chrom3D (i.e chrY is very often giving problems, if so we recomend to set female or none in the sex argument, that will remove chrY to be considered) 
 
