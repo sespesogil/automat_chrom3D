@@ -41,8 +41,9 @@ chromosome_size= # bedfile of chromosome sizes
 domains=  #Arrowhead path 
 black_list=  #genomic blacklist bedfile path 
 NCHG_dir=  # NCHG_hic path (i.e. ./programs/NCHG_hic) 
-cytoBand=  # cytoBand bedfile (only for human)
 LADS=   # LADs bedfile
+specie=    #(human or mouse accepted, specify) 
+cytoBand=  # cytoBand bedfile (only for human)
 ```
 Then run: 
 ```./automat_chrom3D.sh $(cat conf.txt)```
