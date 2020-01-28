@@ -56,5 +56,5 @@ Then run:
 
 # Disclamer
 
-The present pipepile evaluates the number and size of the TADS, as well as intra & interchromosomal distribution, as they are key parts for the 3D mnodel generation. It is recommended to run the pipeline with different parameters in a first run. Resulting chromosomes with low number of beads will result in a failed run of Chrom3D (i.e chrY is very often giving problems, if so we recomend to set female or none in the sex argument, that will remove chrY to be considered) 
+The present pipepile evaluates the number and size of the TADS, as well as intra & interchromosomal distributions, as they are key parts for the 3D mnodel generation. It is recommended to run the pipeline with different parameters in a first run. Resulting Gtrack with low number of beads in a given chromosome will failed when launching Chrom3D (i.e chrY is very often giving problems, we recomend to set female or none in the sex argument, that will remove chrY to be considered) 
 
