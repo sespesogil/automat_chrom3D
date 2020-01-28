@@ -3,8 +3,8 @@ LSF/TORQUE(MOAB) wrapper for mouse and human HiC of the gtrack diploid preparati
 
 See publications from [Collas Lab](http://collaslab.org/) to learn more about the tool:
 
-[Paulsen et al.2017](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1146-2)
-[Paulsen et al.2018](https://www.nature.com/articles/nprot.2018.009) 
+-[Paulsen et al.2017](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1146-2)
+-[Paulsen et al.2018](https://www.nature.com/articles/nprot.2018.009) 
 
 # Required dependencies 
 - Python 2.7 
