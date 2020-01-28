@@ -1,9 +1,10 @@
 # automat_chrom3D
-LSF/TORQUE(MOAB) wrapper for mouse and human HiC of the gtrack diploid preparation pipeline to run chrom3D (https://github.com/Chrom3D/pipeline).  
+LSF/TORQUE(MOAB) wrapper for mouse and human HiC of the gtrack diploid preparation pipeline to run chrom3D (https://github.com/Chrom3D/pipeline). Active development is taking place to add more functionalities to this utility. 
 
-See publications from Collas Lab to learn more about the tool:
-https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1146-2
-https://www.nature.com/articles/nprot.2018.009
+See publications from [Collas Lab](http://collaslab.org/) to learn more about the tool:
+
+[Paulsen et al.2017](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1146-2)
+[Paulsen et al.2018](https://www.nature.com/articles/nprot.2018.009) 
 
 # Required dependencies 
 - Python 2.7 
