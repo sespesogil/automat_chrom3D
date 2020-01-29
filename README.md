@@ -37,9 +37,9 @@ Download and install NCHG
 ```export PATH=$PATH:${PWD} ```   
 
 Then 
-``` cd path/NCHG/preprocess__script-master```
-``` git clone https://github.com/sespesogil/automat_chrom3D.git ```
-``` mv automat_chrom3D/* . ```
+``` cd path/NCHG/preprocess__script-master``` <br/>
+``` git clone https://github.com/sespesogil/automat_chrom3D.git ``` <br/>
+``` mv automat_chrom3D/* . ``` <br/>
 
 Suggested: open all permissions to every file 
 
