@@ -23,6 +23,8 @@ Active development is taking place to add more functionalities to this utility. 
 - statsmodels
 - bedtools
 - [NCHG](http://folk.uio.no/jonaspau/hic/NCHG_hic.zip)
+- R 
+- ggplot2
 
 # Installation
 
