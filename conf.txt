@@ -1,0 +1,17 @@
+dir=
+res_intra=
+res_inter=
+sex=
+stats=
+thresold_intra=
+thresold_inter=
+chrom3D=
+name=
+chromosome_size=
+domains=
+blocks=
+black_list=
+NCHG_dir=
+LADS=
+specie=
+cytoband=t
