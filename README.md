@@ -1,5 +1,5 @@
 # automat_chrom3D
-LSF/TORQUE(MOAB) wrapper for mouse and human HiC gtrack diploid preparation to run chrom3D (https://github.com/Chrom3D/pipeline). Active development is taking place to add more functionalities to this utility. 
+LSF/TORQUE(MOAB) wrapper for mouse and human HiC gtrack diploid preparation to run chrom3D (https://github.com/Chrom3D/pipeline). 
 
 See publications from [Collas Lab](http://collaslab.org/) to learn more about the tool:
 
@@ -10,7 +10,7 @@ See publications from [Collas Lab](http://collaslab.org/) to learn more about th
 
 # Major updates (January 2020) 
 
-This wrapper adds the following characteristics to the previous Chrom3D pipeline:<br/>
+Active development is taking place to add more functionalities to this utility. This wrapper adds the following characteristics to the previous Chrom3D pipeline:<br/>
 
 - Possibility to create Mouse Chrom3D models 
 - Sex chromosome correction
