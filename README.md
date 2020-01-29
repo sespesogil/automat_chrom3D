@@ -1,11 +1,21 @@
 # automat_chrom3D
-LSF/TORQUE(MOAB) wrapper for mouse and human HiC of the gtrack diploid preparation pipeline to run chrom3D (https://github.com/Chrom3D/pipeline). Active development is taking place to add more functionalities to this utility. 
+LSF/TORQUE(MOAB) wrapper for mouse and human HiC gtrack diploid preparation to run chrom3D (https://github.com/Chrom3D/pipeline). Active development is taking place to add more functionalities to this utility. 
 
 See publications from [Collas Lab](http://collaslab.org/) to learn more about the tool:
 
 -[Paulsen et al.2017](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1146-2) <br/>
 
 -[Paulsen et al.2018](https://www.nature.com/articles/nprot.2018.009) 
+
+
+# Major updates (January 2020) 
+
+This wrapper adds the following characteristics to the previous Chrom3D pipeline:<br/>
+
+- Possibility to create Mouse Chrom3D models 
+- Sex chromosome correction
+- TAD size and number evaluation 
+- Intra and interchromosomal interaction frequency evaluation (still under development) 
 
 # Required dependencies 
 - Python 2.7 
@@ -56,5 +66,5 @@ Then run:
 
 # Disclamer
 
-The present pipepile evaluates the number and size of the TADS, as well as intra & interchromosomal distributions, as they are key parts for the 3D model generation. It is recommended to run the pipeline with different parameters in a first run. Resulting Gtrack with low number of beads in a given chromosome will failed when launching Chrom3D (i.e chrY is very often giving problems, we recomend to set female or none in the sex argument, that will remove chrY to be considered) 
+The present pipepile evaluates the number and size of the TADs, as well as intra & interchromosomal distributions, as they are key parts for the 3D model generation. It is recommended to run the pipeline with different parameters in a first run. Resulting Gtracks with low number of beads in a given chromosome will fail a Chrom3D run (i.e chrY is very often giving problems, we recommend to set "female" or "none" in the sex argument of the configuration file (that will remove chrY to be considered) 
 
