@@ -4,52 +4,6 @@ module load python/2.7.9
 module load bedtools 
 module load R
 
-echo " Are you loading all modules? " 
-echo "..."
-
-#!/bin/sh
-
-MODULE="boost"
-
-if lsmod | grep "$MODULE" &> /dev/null ; then
-  echo "$MODULE is loaded!"
-  exit 0
-else
-  echo "$MODULE is not loaded!"
-  exit 1
-fi
-
-MODULE="python/2.7.9"
-
-if lsmod | grep "$MODULE" &> /dev/null ; then
-  echo "$MODULE is loaded!"
-  exit 0
-else
-  echo "$MODULE is not loaded!"
-  exit 1
-fi
-
-
-MODULE="bedtools"
-
-if lsmod | grep "$MODULE" &> /dev/null ; then
-  echo "$MODULE is loaded!"
-  exit 0
-else
-  echo "$MODULE is not loaded!"
-  exit 1
-fi
-
-MODULE="bedtools"
-
-if lsmod | grep "$MODULE" &> /dev/null ; then
-  echo "$MODULE is loaded!"
-  exit 0
-else
-  echo "$MODULE is not loaded!"
-  exit 1
-fi
-
 ###################################################
 
 dir=$(echo $1 | cut -f2 -d"=")
