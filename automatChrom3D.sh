@@ -148,6 +148,15 @@ $NCHG_dir/preprocess_scripts-master/NCHG_fdr_oddratio_calc_intra.automat.sh $chr
 
 bash $NCHG_dir/preprocess_scripts-master/make_gtrack.sh $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe.sig $domains/sample_Arrowhead_domainlist.domains $chrom3D/intrachr_bedpe/$name.woLADS.gtrack
 
+if [ -z "$LADS" ]
+then
+   echo "\$LADS not provided"
+   echo "excluding LADs as a model constrain"
+else
+  echo "\$LADS provided"
+  echo "adding LADs as a model constrain"
+  bash $NCHG_dir/preprocess_scripts-master/make_gtrack_incl_lad.sh $chrom3D/intrachr_bedpe/$name.woLADS.gtrack $LADS $chrom3D/intrachr_bedpe/$name.wLADS.gtrack
+fi
 # bash $NCHG_dir/preprocess_scripts-master/make_gtrack_incl_lad.sh $chrom3D/intrachr_bedpe/$name.woLADS.gtrack $LADS $chrom3D/intrachr_bedpe/$name.wLADS.gtrack
 
 bash $NCHG_dir/preprocess_scripts-master/interchr_NCHG.automat.sh $chromosome_size $black_list $res_inter $chrom3D > $chrom3D/$name.inter.bedpe
