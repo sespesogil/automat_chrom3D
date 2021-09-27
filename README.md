@@ -8,15 +8,6 @@ See publications and visit the original [pipeline](https://github.com/Chrom3D/pi
 -[Paulsen et al.2018](https://www.nature.com/articles/nprot.2018.009) 
 
 
-# Major updates (January 2020) 
-
-Active development is taking place to add more functionalities to this utility. This wrapper is an automated compilation of the scripts used by Collas lab with some modifications and adding the following characteristics to the previous Chrom3D pipeline:<br/>
-
-- Possibility to create Mouse Chrom3D models 
-- Sex chromosome correction
-- TAD size and number evaluation 
-- Intra and interchromosomal interaction frequency evaluation (still under development) 
-
 # Required dependencies 
 - Python 2.7 
 - pybedtools
