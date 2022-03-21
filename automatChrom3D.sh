@@ -25,7 +25,7 @@ specie=$(echo ${16} | cut -f2 -d"=")
 cytoband=$(echo ${17} | cut -f2 -d"=")
 
 
-mkdir $chrom3D
+mkdir -p $chrom3D
 
 matrix_intra=*$res_intra.matrix
 abs_intra=*$res_intra*.bed
