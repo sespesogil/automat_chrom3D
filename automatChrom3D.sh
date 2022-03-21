@@ -43,8 +43,16 @@ done
 
 abs_intra=*$res_intra.bed
 
+checkNCHG="$NCHG_dir/preprocess_scripts/"
+if [ -d "$checkNCHG" ]; then
+  echo "Preprocessing cis interactions reads..."
+else
+  echo "Error: ${checkNCHG} not found. "
+  exit 1
+fi
 
-$NCHG_dir/preprocess_scripts-master/conv_hicpro_mat_intra.sh $chrom3D/$matrix_intra $chrom3D/$abs_intra $name
+
+$NCHG_dir/preprocess_scripts/conv_hicpro_mat_intra.sh $chrom3D/$matrix_intra $chrom3D/$abs_intra $name
 
 mv $NCHG_dir/preprocess_scripts-master/$name.intra.intermediate.bedpe $chrom3D/
 
