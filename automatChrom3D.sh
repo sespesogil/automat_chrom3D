@@ -27,20 +27,20 @@ cytoband=$(echo ${17} | cut -f2 -d"=")
 
 mkdir -p $chrom3D
 
-matrix_intra=*$res_intra.matrix
-abs_intra=*$res_intra*.bed
-matrix_inter=*$res_inter.matrix
-abs_inter=*$res_inter*.bed
+matrix_intra=*_$res_intra.matrix
+abs_intra=*_$res_intra\_abs.bed
+matrix_inter=*_$res_inter.matrix
+abs_inter=*_$res_inter\_abs.bed
 
 find $dir -name $(echo $matrix_intra) -exec cp {} $chrom3D  \;
 find $dir -name $(echo $abs_intra) -exec cp {} $chrom3D  \;
 find $dir -name $(echo $matrix_inter) -exec cp {} $chrom3D  \;
 find $dir -name $(echo $abs_inter) -exec cp {} $chrom3D  \;
 
+# redefined and assign new name
 for file in $chrom3D/*_abs.bed ; do
 mv "$file" "${file/_abs/}";
 done
-
 abs_intra=*$res_intra.bed
 
 checkNCHG="$NCHG_dir/preprocess_scripts/"
@@ -51,11 +51,9 @@ else
   exit 1
 fi
 
-
 $NCHG_dir/preprocess_scripts/conv_hicpro_mat_intra.sh $chrom3D/$matrix_intra $chrom3D/$abs_intra $name
 
-mv $NCHG_dir/preprocess_scripts-master/$name.intra.intermediate.bedpe $chrom3D/
-
+mv $NCHG_dir/preprocess_scripts/$name.intra.intermediate.bedpe $chrom3D/
 
 if [ $sex = "female" ]
 then
@@ -72,6 +70,7 @@ else
         mv $chrom3D/$name.intra.intermediate.bedpe $chrom3D/$name.intra.intermediate.formatted.bedpe
 fi
 
+#s2
 
 mkdir $chrom3D/intra_chr_RAWobserved
 
