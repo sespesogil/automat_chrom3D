@@ -75,10 +75,11 @@ fi
 mkdir $chrom3D/intra_chr_RAWobserved
 
 echo "$res_intra intrachromosomal resolution selected, processing..."
-bash $NCHG_dir/preprocess_scripts-master/make_intrachr_rawObserved.automat.sh $chromosome_size $chrom3D/$name.intra.intermediate.formatted.bedpe $res_intra 2> /dev/null
-mv $NCHG_dir/preprocess_scripts-master/intra_chr_RAWobserved $chrom3D/
-$NCHG_dir/preprocess_scripts-master/conv_hicpro_mat_inter.temp.sh $chrom3D/$matrix_inter $chrom3D/$abs_inter $name 2> /dev/null
-mv $NCHG_dir/preprocess_scripts-master/$name.inter.intermediate.bedpe $chrom3D/
+bash $NCHG_dir/preprocess_scripts/make_intrachr_rawObserved.automat.sh $chromosome_size $chrom3D/$name.intra.intermediate.formatted.bedpe $res_intra 2> /dev/null
+
+mv $NCHG_dir/preprocess_scripts/intra_chr_RAWobserved $chrom3D/
+$NCHG_dir/preprocess_scripts/conv_hicpro_mat_inter.temp.sh $chrom3D/$matrix_inter $chrom3D/$abs_inter $name 2> /dev/null
+mv $NCHG_dir/preprocess_scripts/$name.inter.intermediate.bedpe $chrom3D/
 
 if [ $sex = "female" ]
 then
@@ -95,13 +96,13 @@ else
         mv $chrom3D/$name.inter.intermediate.bedpe $chrom3D/$name.inter.intermediate.formatted.bedpe
 fi
 
-bash $NCHG_dir/preprocess_scripts-master/make_interchr_rawObserved.automat.sh $chromosome_size $chrom3D/$name.inter.intermediate.formatted.bedpe 2> /dev/null
-mv $NCHG_dir/preprocess_scripts-master/inter_chr_RAWobserved $chrom3D/
+bash $NCHG_dir/preprocess_scripts/make_interchr_rawObserved.automat.sh $chromosome_size $chrom3D/$name.inter.intermediate.formatted.bedpe 2> /dev/null
+mv $NCHG_dir/preprocess_scripts/inter_chr_RAWobserved $chrom3D/
 
 cd $NCHG_dir/preprocess_scripts-master
 echo "Evaluating TADs..."
 
-tail -n +2 $domains/$blocks.bedpe > temp
+tail -n +2 $domains/$res_intra\_blocks.bedpe > temp
 awk 'NF > 0 { print "chr"$1 "\t" $2"_"$3 "\t" ($3 - $2) }' temp > diff.bed
 awk '{dups[$1]++} END{for (num in dups) {print num,dups[num]}}' diff.bed > diff.counts.bed
 sort -k1,1 -V -s diff.counts.bed > diff.counts.sorted.bed
@@ -116,15 +117,15 @@ echo "Maximun domain found in autosomes of size: $(awk -v max=0 '{if($3>max){wan
 echo "$(awk -v max=0 '{if($3>max){want=$1; max=$3}}END{print want} ' diff.autosomes.bed)"
 
 
-Rscript $NCHG_dir/preprocess_scripts-master/TADev.R
+Rscript $NCHG_dir/preprocess_scripts/TADev.R
 mv ./TADsizedistribution.pdf $chrom3D/$name.TADsizedistribution.pdf
 mv ./TADs_per_chromosome.pdf $chrom3D/$name.TADs_per_chromosome.pdf
 
-bash $NCHG_dir/preprocess_scripts-master/arrowhead_to_domains.sh $domains/$blocks.bedpe $chromosome_size
+bash $NCHG_dir/preprocess_scripts/arrowhead_to_domains.sh $domains/$res_intra\_blocks.bedpe $chromosome_size
 cat $domains/*.chr*.domains > $domains/sample_Arrowhead_domainlist.domains
 
-bash $NCHG_dir/preprocess_scripts-master/intrachr_NCHG_input_auto.sh $blocks $chromosome_size $res_intra $domains $chrom3D 2> /dev/null
-mv $NCHG_dir/preprocess_scripts-master/intrachr_bedpe $chrom3D/
+bash $NCHG_dir/preprocess_scripts/intrachr_NCHG_input_auto.sh $res_intra\_blocks.bedpe $chromosome_size $res_intra $domains $chrom3D 2> /dev/null
+mv $NCHG_dir/preprocess_scripts/intrachr_bedpe $chrom3D/
 cat $chrom3D/intrachr_bedpe/chr*.bedpe/chr*.bedpe > $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe
 
 #####  CYTOBAND
@@ -147,13 +148,13 @@ fi
 
 $NCHG_dir/NCHG -m $res_intra -p $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.no_cen.bedpe > $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe.out
 
-cd $NCHG_dir/preprocess_scripts-master
+cd $NCHG_dir/preprocess_scripts
 
 
-$NCHG_dir/preprocess_scripts-master/NCHG_fdr_oddratio_calc_intra.automat.sh $chrom3D $stats $thresold_intra $res_intra
+$NCHG_dir/preprocess_scripts/NCHG_fdr_oddratio_calc_intra.automat.sh $chrom3D $stats $thresold_intra $res_intra
 
 
-bash $NCHG_dir/preprocess_scripts-master/make_gtrack.sh $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe.sig $domains/sample_Arrowhead_domainlist.domains $chrom3D/intrachr_bedpe/$name.woLADS.gtrack
+bash $NCHG_dir/preprocess_scripts/make_gtrack.sh $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe.sig $domains/sample_Arrowhead_domainlist.domains $chrom3D/intrachr_bedpe/$name.woLADS.gtrack
 
 if [ -z "$LADS" ]
 then
