@@ -42,6 +42,7 @@ for file in $chrom3D/*_abs.bed ; do
 mv "$file" "${file/_abs/}";
 done
 abs_intra=*$res_intra.bed
+abs_inter=*_$res_inter.bed
 
 checkNCHG="$NCHG_dir/preprocess_scripts/"
 if [ -d "$checkNCHG" ]; then
@@ -78,8 +79,12 @@ echo "$res_intra intrachromosomal resolution selected, processing..."
 bash $NCHG_dir/preprocess_scripts/make_intrachr_rawObserved.automat.sh $chromosome_size $chrom3D/$name.intra.intermediate.formatted.bedpe $res_intra 2> /dev/null
 
 mv $NCHG_dir/preprocess_scripts/intra_chr_RAWobserved $chrom3D/
+
+echo("Processing interchromosomal interactions")
 $NCHG_dir/preprocess_scripts/conv_hicpro_mat_inter.temp.sh $chrom3D/$matrix_inter $chrom3D/$abs_inter $name 2> /dev/null
 mv $NCHG_dir/preprocess_scripts/$name.inter.intermediate.bedpe $chrom3D/
+
+# s040622
 
 if [ $sex = "female" ]
 then
