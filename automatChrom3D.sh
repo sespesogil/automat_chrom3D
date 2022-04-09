@@ -136,6 +136,9 @@ then
 elif [ $TADstype = "SpectralTAD" ]
 then
         echo "SpectralTAD selected, processing..."
+        sort -k1,1 -k2,2n $2 > genome
+        complementBed -i ${filename}.merged.bed -g genome | cat - ${filename}.merged.bed | sort -k1,1 -k2,2n - | awk '{if($4=="domain") print $0; else print $1 "\t" $2 "\t" $3 "\tgap"}'  > ${filename}.domains
+
 
 else
         echo "None TAD type selected, stopping..."
