@@ -71,14 +71,13 @@ else
         mv $chrom3D/$name.intra.intermediate.bedpe $chrom3D/$name.intra.intermediate.formatted.bedpe
 fi
 
-#s2
-
 mkdir $chrom3D/intra_chr_RAWobserved
 
 echo "$res_intra intrachromosomal resolution selected, processing..."
 bash $NCHG_dir/preprocess_scripts/make_intrachr_rawObserved.automat.sh $chromosome_size $chrom3D/$name.intra.intermediate.formatted.bedpe $res_intra 2> /dev/null
 
 mv $NCHG_dir/preprocess_scripts/intra_chr_RAWobserved $chrom3D/
+rm -r $chrom3D/intra_chr_RAWobserved/*GL* $chrom3D/intra_chr_RAWobserved/*JH*
 
 echo("Processing interchromosomal interactions")
 $NCHG_dir/preprocess_scripts/conv_hicpro_mat_inter.temp.sh $chrom3D/$matrix_inter $chrom3D/$abs_inter $name 2> /dev/null
@@ -107,30 +106,32 @@ mv $NCHG_dir/preprocess_scripts/inter_chr_RAWobserved $chrom3D/
 cd $NCHG_dir/preprocess_scripts-master
 echo "Evaluating TADs..."
 
-tail -n +2 $domains/$res_intra\_blocks.bedpe > temp
-awk 'NF > 0 { print "chr"$1 "\t" $2"_"$3 "\t" ($3 - $2) }' temp > diff.bed
-awk '{dups[$1]++} END{for (num in dups) {print num,dups[num]}}' diff.bed > diff.counts.bed
-sort -k1,1 -V -s diff.counts.bed > diff.counts.sorted.bed
-sed  -s '1i CHR coordinates substraction' diff.bed > diff.head.bed
-sed  -i '1i CHR TADnumber' diff.counts.sorted.bed
-awk 'BEGIN {max = 0} {if ($3>max && $3!= ">") max=$3} END {print max}' temp
-echo "Maximun domain found of size: $(awk -v max=0 '{if($3>max){want=$3; max=$3}}END{print want} ' diff.bed) bp in... "
-echo "$(awk -v max=0 '{if($3>max){want=$1; max=$3}}END{print want} ' diff.bed)"
-awk '$1!="chrY" && $4!~"chrY"' diff.bed > temp.diff
-awk '$1!="chrX" && $4!~"chrX"' temp.diff >  diff.autosomes.bed
-echo "Maximun domain found in autosomes of size: $(awk -v max=0 '{if($3>max){want=$3; max=$3}}END{print want} ' diff.autosomes.bed) bp in ..."
-echo "$(awk -v max=0 '{if($3>max){want=$1; max=$3}}END{print want} ' diff.autosomes.bed)"
-
-
-Rscript $NCHG_dir/preprocess_scripts/TADev.R
-mv ./TADsizedistribution.pdf $chrom3D/$name.TADsizedistribution.pdf
-mv ./TADs_per_chromosome.pdf $chrom3D/$name.TADs_per_chromosome.pdf
+# tail -n +2 $domains/$res_intra\_blocks.bedpe > temp
+# awk 'NF > 0 { print "chr"$1 "\t" $2"_"$3 "\t" ($3 - $2) }' temp > diff.bed
+# awk '{dups[$1]++} END{for (num in dups) {print num,dups[num]}}' diff.bed > diff.counts.bed
+# sort -k1,1 -V -s diff.counts.bed > diff.counts.sorted.bed
+# sed  -s '1i CHR coordinates substraction' diff.bed > diff.head.bed
+# sed  -i '1i CHR TADnumber' diff.counts.sorted.bed
+# awk 'BEGIN {max = 0} {if ($3>max && $3!= ">") max=$3} END {print max}' temp
+# echo "Maximun domain found of size: $(awk -v max=0 '{if($3>max){want=$3; max=$3}}END{print want} ' diff.bed) bp in... "
+# echo "$(awk -v max=0 '{if($3>max){want=$1; max=$3}}END{print want} ' diff.bed)"
+# awk '$1!="chrY" && $4!~"chrY"' diff.bed > temp.diff
+# awk '$1!="chrX" && $4!~"chrX"' temp.diff >  diff.autosomes.bed
+# echo "Maximun domain found in autosomes of size: $(awk -v max=0 '{if($3>max){want=$3; max=$3}}END{print want} ' diff.autosomes.bed) bp in ..."
+# echo "$(awk -v max=0 '{if($3>max){want=$1; max=$3}}END{print want} ' diff.autosomes.bed)"
+# Rscript $NCHG_dir/preprocess_scripts/TADev.R
+# mv ./TADsizedistribution.pdf $chrom3D/$name.TADsizedistribution.pdf
+# mv ./TADs_per_chromosome.pdf $chrom3D/$name.TADs_per_chromosome.pdf
 
 bash $NCHG_dir/preprocess_scripts/arrowhead_to_domains.sh $domains/$res_intra\_blocks.bedpe $chromosome_size
+rm $domains/*JH* $domains/*GL*
 cat $domains/*.chr*.domains > $domains/sample_Arrowhead_domainlist.domains
+
+# s04092022
 
 bash $NCHG_dir/preprocess_scripts/intrachr_NCHG_input_auto.sh $res_intra\_blocks.bedpe $chromosome_size $res_intra $domains $chrom3D 2> /dev/null
 mv $NCHG_dir/preprocess_scripts/intrachr_bedpe $chrom3D/
+rm $chrom3D/intrachr_bedpe/
 cat $chrom3D/intrachr_bedpe/chr*.bedpe/chr*.bedpe > $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe
 
 #####  CYTOBAND
