@@ -23,6 +23,7 @@ NCHG_dir=$(echo ${14} | cut -f2 -d"=")
 LADS=$(echo ${15} | cut -f2 -d"=")
 specie=$(echo ${16} | cut -f2 -d"=")
 cytoband=$(echo ${17} | cut -f2 -d"=")
+TADstype=$(echo ${18} | cut -f2 -d"=")
 
 
 mkdir -p $chrom3D
@@ -123,15 +124,30 @@ echo "Evaluating TADs..."
 # mv ./TADsizedistribution.pdf $chrom3D/$name.TADsizedistribution.pdf
 # mv ./TADs_per_chromosome.pdf $chrom3D/$name.TADs_per_chromosome.pdf
 
+echo "Processing TADs..."
+
+if [ $TADstype = "Arrowhead" ]
+then
+      echo "Arrowhead selected, processing..."
+      bash $NCHG_dir/preprocess_scripts/arrowhead_to_domains.sh $domains/$res_intra\_blocks.bedpe $chromosome_size
+      rm $domains/*JH* $domains/*GL*
+      cat $domains/*.chr*.domains > $domains/sample_Arrowhead_domainlist.domains
+
+elif [ $TADstype = "SpectralTAD" ]
+then
+        echo "SpectralTAD selected, processing..."
+
+else
+        echo "None TAD type selected, stopping..."
+fi
+
 bash $NCHG_dir/preprocess_scripts/arrowhead_to_domains.sh $domains/$res_intra\_blocks.bedpe $chromosome_size
 rm $domains/*JH* $domains/*GL*
 cat $domains/*.chr*.domains > $domains/sample_Arrowhead_domainlist.domains
 
-# s04092022
-
-bash $NCHG_dir/preprocess_scripts/intrachr_NCHG_input_auto.sh $res_intra\_blocks.bedpe $chromosome_size $res_intra $domains $chrom3D 2> /dev/null
+bash $NCHG_dir/preprocess_scripts/intrachr_NCHG_input_auto.sh $res_intra\_blocks $chromosome_size $res_intra $domains $chrom3D 2> /dev/null
 mv $NCHG_dir/preprocess_scripts/intrachr_bedpe $chrom3D/
-rm $chrom3D/intrachr_bedpe/
+rm -r $chrom3D/intrachr_bedpe/*GL* $chrom3D/intrachr_bedpe/*JH*
 cat $chrom3D/intrachr_bedpe/chr*.bedpe/chr*.bedpe > $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe
 
 #####  CYTOBAND
@@ -139,12 +155,12 @@ cat $chrom3D/intrachr_bedpe/chr*.bedpe/chr*.bedpe > $chrom3D/intrachr_bedpe/samp
 if [ $specie = "human" ]
 then
 echo "human selected"
-grep acen $cytoband | pairToBed -a $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe -b stdin -type neither > $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.no_cen.bedpe
+grep acen $cytoband | pairToBed -a $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe -b stdin -type neither > $chrom3D/intrachr_bedpe/sample.domain.RAW.no_cen.bedpe
 
 elif [ $specie = "mouse" ]
 then
 echo "mouse selected"
-cat $chrom3D/intrachr_bedpe/chr*.bedpe/chr*.bedpe > $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.no_cen.bedpe
+cat $chrom3D/intrachr_bedpe/chr*.bedpe/chr*.bedpe > $chrom3D/intrachr_bedpe/sample.domain.RAW.no_cen.bedpe
 
 fi
 
@@ -152,15 +168,10 @@ fi
 #####
 
 
-$NCHG_dir/NCHG -m $res_intra -p $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.no_cen.bedpe > $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe.out
-
+$NCHG_dir/NCHG -m $res_intra -p $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.no_cen.bedpe > $chrom3D/intrachr_bedpe/sample.domain.RAW.bedpe.out
 cd $NCHG_dir/preprocess_scripts
-
-
 $NCHG_dir/preprocess_scripts/NCHG_fdr_oddratio_calc_intra.automat.sh $chrom3D $stats $thresold_intra $res_intra
-
-
-bash $NCHG_dir/preprocess_scripts/make_gtrack.sh $chrom3D/intrachr_bedpe/sample.$res_intra.domain.RAW.bedpe.sig $domains/sample_Arrowhead_domainlist.domains $chrom3D/intrachr_bedpe/$name.woLADS.gtrack
+bash $NCHG_dir/preprocess_scripts/make_gtrack.sh $chrom3D/intrachr_bedpe/sample.domain.RAW.bedpe.sig $domains/sample_Arrowhead_domainlist.domains $chrom3D/intrachr_bedpe/$name.woLADS.gtrack
 
 if [ -z "$LADS" ]
 then
@@ -169,31 +180,31 @@ then
 else
   echo "\$LADS provided"
   echo "adding LADs as a model constrain"
-  bash $NCHG_dir/preprocess_scripts-master/make_gtrack_incl_lad.sh $chrom3D/intrachr_bedpe/$name.woLADS.gtrack $LADS $chrom3D/intrachr_bedpe/$name.wLADS.gtrack
+  bash $NCHG_dir/preprocess_scripts/make_gtrack_incl_lad.sh $chrom3D/intrachr_bedpe/$name.woLADS.gtrack $LADS $chrom3D/intrachr_bedpe/$name.wLADS.gtrack
 fi
-# bash $NCHG_dir/preprocess_scripts-master/make_gtrack_incl_lad.sh $chrom3D/intrachr_bedpe/$name.woLADS.gtrack $LADS $chrom3D/intrachr_bedpe/$name.wLADS.gtrack
+# bash $NCHG_dir/preprocess_scripts/make_gtrack_incl_lad.sh $chrom3D/intrachr_bedpe/$name.woLADS.gtrack $LADS $chrom3D/intrachr_bedpe/$name.wLADS.gtrack
 
-bash $NCHG_dir/preprocess_scripts-master/interchr_NCHG.automat.sh $chromosome_size $black_list $res_inter $chrom3D > $chrom3D/$name.inter.bedpe
+bash $NCHG_dir/preprocess_scripts/interchr_NCHG.automat.sh $chromosome_size $black_list $res_inter $chrom3D > $chrom3D/$name.inter.bedpe
 
 $NCHG_dir/NCHG -i -p $chrom3D/$name.inter.bedpe > $chrom3D/$name.inter.bedpe.out
 
-cd $NCHG_dir/preprocess_scripts-master
+cd $NCHG_dir/preprocess_scripts
 
-$NCHG_dir/preprocess_scripts-master/NCHG_fdr_oddratio_calc_inter.automat.sh $chrom3D $name $stats $thresold_inter
+$NCHG_dir/preprocess_scripts/NCHG_fdr_oddratio_calc_inter.automat.sh $chrom3D $name $stats $thresold_inter
 
 ### LADS loop
 if [ -z "$LADS" ]
 then
    echo "\$LADS not provided"
    echo "excluding LADs as a model constrain"
-   bash $NCHG_dir/preprocess_scripts-master/add_inter_chrom_beads_wo_lads.sh $chrom3D/intrachr_bedpe/$name.woLADS.gtrack $chrom3D/$name.inter.bedpe.sig $chrom3D/$name.inter_intra.gtrack
+   bash $NCHG_dir/preprocess_scripts/add_inter_chrom_beads_wo_lads.sh $chrom3D/intrachr_bedpe/$name.woLADS.gtrack $chrom3D/$name.inter.bedpe.sig $chrom3D/$name.inter_intra.gtrack
 else
   echo "\$LADS provided"
   echo "adding LADs as a model constrain"
-  bash $NCHG_dir/preprocess_scripts-master/add_inter_chrom_beads.sh $chrom3D/intrachr_bedpe/$name.wLADS.gtrack $chrom3D/$name.inter.bedpe.sig $chrom3D/$name.inter_intra.gtrack
+  bash $NCHG_dir/preprocess_scripts/add_inter_chrom_beads.sh $chrom3D/intrachr_bedpe/$name.wLADS.gtrack $chrom3D/$name.inter.bedpe.sig $chrom3D/$name.inter_intra.gtrack
 fi
 
-$NCHG_dir/preprocess_scripts-master/make_diploid.sh $chrom3D $name
+$NCHG_dir/preprocess_scripts/make_diploid.sh $chrom3D $name
 
 if [ $sex = "female" ]
 then
@@ -210,5 +221,5 @@ else
         rm $chrom3D/$name.inter_intra.diploid.gtrack
 fi
 
-rm $chrom3D/*0.matrix $chrom3D/*0.bed $NCHG_dir/preprocess_scripts-master/diff*
+rm $chrom3D/*0.matrix $chrom3D/*0.bed $NCHG_dir/preprocess_scripts/diff*
 
