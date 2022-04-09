@@ -136,8 +136,14 @@ then
 elif [ $TADstype = "SpectralTAD" ]
 then
         echo "SpectralTAD selected, processing..."
-        sort -k1,1 -k2,2n $2 > genome
-        complementBed -i ${filename}.merged.bed -g genome | cat - ${filename}.merged.bed | sort -k1,1 -k2,2n - | awk '{if($4=="domain") print $0; else print $1 "\t" $2 "\t" $3 "\tgap"}'  > ${filename}.domains
+        chr1    3000000 6200000 domain
+chr1    6250000 7100000 domain
+        tail -n +2 $domains> $domains/tmp
+        awk -F"\t" '{print $1"\t"$2"\t"$3"\t""domains"}' tmp > tmp.merged.bed
+        sort -k1,1 -k2,2n $chromosome_size > genome
+        sort -k1,1 -k2,2n  tmp.merged.bed >  tmp.mergedSorted.bed
+        complementBed -i tmp.mergedSorted.bed -g genome | cat - ${filename}.merged.bed | sort -k1,1 -k2,2n - | awk '{if($4=="domain") print $0; else print $1 "\t" $2 "\t" $3 "\tgap"}'  > ${filename}.domains
+        complementBed -i tmp.mergedSorted.bed -g genome | cat - tmp.mergedSorted.bed | sort -k1,1 -k2,2n - | awk '{if($4=="domain") print $0; else print $1 "\t" $2 "\t" $3 "\tgap"}'  > test2
 
 
 else
