@@ -17,14 +17,12 @@ thresold_inter=$(echo $7 | cut -f2 -d"=")
 name=$(echo $9 | cut -f2 -d"=")
 chromosome_size=$(echo ${10} | cut -f2 -d"=")
 domains=$(echo ${11} | cut -f2 -d"=")
-blocks=$(echo ${12} | cut -f2 -d"=")
+TADstype=$(echo ${12} | cut -f2 -d"=")
 black_list=$(echo ${13} | cut -f2 -d"=")
 NCHG_dir=$(echo ${14} | cut -f2 -d"=")
 LADS=$(echo ${15} | cut -f2 -d"=")
 specie=$(echo ${16} | cut -f2 -d"=")
 cytoband=$(echo ${17} | cut -f2 -d"=")
-TADstype=$(echo ${18} | cut -f2 -d"=")
-
 
 mkdir -p $chrom3D
 
