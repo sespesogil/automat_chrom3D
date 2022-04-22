@@ -134,23 +134,19 @@ then
 elif [ $TADstype = "SpectralTAD" ]
 then
         echo "SpectralTAD selected, processing..."
-        chr1    3000000 6200000 domain
-chr1    6250000 7100000 domain
-        tail -n +2 $domains> $domains/tmp
-        awk -F"\t" '{print $1"\t"$2"\t"$3"\t""domains"}' tmp > tmp.merged.bed
-        sort -k1,1 -k2,2n $chromosome_size > genome
-        sort -k1,1 -k2,2n  tmp.merged.bed >  tmp.mergedSorted.bed
-        complementBed -i tmp.mergedSorted.bed -g genome | cat - ${filename}.merged.bed | sort -k1,1 -k2,2n - | awk '{if($4=="domain") print $0; else print $1 "\t" $2 "\t" $3 "\tgap"}'  > ${filename}.domains
-        complementBed -i tmp.mergedSorted.bed -g genome | cat - tmp.mergedSorted.bed | sort -k1,1 -k2,2n - | awk '{if($4=="domain") print $0; else print $1 "\t" $2 "\t" $3 "\tgap"}'  > test2
-
+        # tail -n +2 $domains> $domains/tmp
+        # awk -F"\t" '{print $1"\t"$2"\t"$3"\t""domains"}' tmp > tmp.merged.bed
+        # sort -k1,1 -k2,2n $chromosome_size > genome
+        # sort -k1,1 -k2,2n  tmp.merged.bed >  tmp.mergedSorted.bed
+        # complementBed -i tmp.mergedSorted.bed -g genome | awk -F"\t" '{print $1"\t"$2"\t"$3"\t""gap"}' | cat - tmp.mergedSorted.bed | sort -k1,1 -k2,2n > ${filename}.domains
+        bash $NCHG_dir/preprocess_scripts/arrowhead_to_domains.SpectralTAD.sh $domains $chromosome_size
+        Pdir="$(dirname "$domains")"
+        rm $Pdir/*JH* $Pdir/*GL*
+        cat $Pdir/*.chr*.domains > $Pdir/sample_Arrowhead_domainlist.domains
 
 else
         echo "None TAD type selected, stopping..."
 fi
-
-bash $NCHG_dir/preprocess_scripts/arrowhead_to_domains.sh $domains/$res_intra\_blocks.bedpe $chromosome_size
-rm $domains/*JH* $domains/*GL*
-cat $domains/*.chr*.domains > $domains/sample_Arrowhead_domainlist.domains
 
 bash $NCHG_dir/preprocess_scripts/intrachr_NCHG_input_auto.sh $res_intra\_blocks $chromosome_size $res_intra $domains $chrom3D 2> /dev/null
 mv $NCHG_dir/preprocess_scripts/intrachr_bedpe $chrom3D/
