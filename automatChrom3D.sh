@@ -130,6 +130,16 @@ then
       bash $NCHG_dir/preprocess_scripts/arrowhead_to_domains.sh $domains/$res_intra\_blocks.bedpe $chromosome_size
       rm $domains/*JH* $domains/*GL*
       cat $domains/*.chr*.domains > $domains/sample_Arrowhead_domainlist.domains
+      
+elif [ $TADstype = "consensusTAD" ]
+then
+
+      echo "consensusTAD selected, processing..."
+     
+      
+      bash $NCHG_dir/preprocess_scripts/arrowhead_to_domains.consensus.sh $domains $chromosome_size
+      rm $domains/*JH* $domains/*GL*
+      cat $domains/*.chr*.domains > $domains/sample_Arrowhead_domainlist.domains
 
 elif [ $TADstype = "SpectralTAD" ]
 then
